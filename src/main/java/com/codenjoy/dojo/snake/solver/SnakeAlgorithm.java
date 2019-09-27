@@ -2,8 +2,12 @@ package com.codenjoy.dojo.snake.solver;
 
 import com.codenjoy.dojo.services.Point;
 import com.codenjoy.dojo.snake.client.Board;
+import com.codenjoy.dojo.snake.logger.Logger;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.StringJoiner;
 
 import static com.codenjoy.dojo.services.Direction.*;
 import static com.codenjoy.dojo.services.Direction.UP;
@@ -13,10 +17,6 @@ public class SnakeAlgorithm {
 
     public SnakeAlgorithm(Board board) {
         this.board = board;
-    }
-
-    public void ConsiderMove(Board board) {
-
     }
 
     private String getMoveString(Point dest) {
@@ -29,19 +29,56 @@ public class SnakeAlgorithm {
     }
 
     public String makeMove(){
+
         FieldData fieldData = new FieldData(board);
-        if (!fieldData.isValid()) {
-            return UP.toString(); // just useless direction to return something;
+        if (fieldData.getSnake().size() >= 55){
+            fieldData.allowToEatStone();
         }
         Navigator nav = new Navigator(fieldData);
 
-        Optional<Route> shortest = nav.getShortestRoute();
+        try {
+            Route result;
+            Optional<Route> shortest = nav.getShortestRoute(fieldData.getApples());
 
-        if (shortest.isPresent()) {
-            Route r = shortest.get();
-            return getMoveString(r.getLast());
-        } else {
+            if (shortest.isPresent()) {
+                result = safetyAdjustedRoute(shortest.get(), nav, fieldData);
+            } else {
+                result = nav.getRouteOut(fieldData);
+            }
+            System.out.print("RESULT ROUTE: ");
+            result.forEach(System.out::print);
+            System.out.println();
+            System.out.println("NEXT MOVE: " + result.getLast());
+            return getMoveString(result.getLast());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger.getInstance().logError(e, board);
             return getMoveString(nav.nearestSafeRandom());
         }
+    }
+
+    private boolean routeIsNotDeadEnd(Route route, LinkedList<Point> snake, int snakeSize) {
+        route.addAll(snake);
+        LinkedList<Point> futureSnake = new LinkedList<>(route.subList(0, snakeSize + 1));
+        FieldData futureField = new FieldData(futureSnake, futureSnake.getFirst(), board.getApples(), board.getStones(), board.getWalls());
+        Navigator simulator = new Navigator(futureField);
+        return simulator.countAvailableSurroundings() >= snakeSize;
+    }
+
+    private Route safetyAdjustedRoute (Route original, Navigator nav, FieldData fieldData) {
+        LinkedList<Point> snake = fieldData.getSnake();
+        if (routeIsNotDeadEnd(new Route(original), snake, snake.size())) {
+            System.out.println("ORIGINAL ROUTE ACCEPTED");
+            return original;
+        }
+        Route longerRoute = nav.getLongerRouteVersion(original,fieldData, snake.size());
+
+        if (routeIsNotDeadEnd(new Route(longerRoute), snake, snake.size())) {
+            System.out.println("TRYING LONGER ROUTE");
+            return longerRoute;
+        }
+            System.out.println("LONGER ROUTE IS NOT VALID");
+            return nav.getLongerRouteVersion(nav.routeToMostDistantPoint(), fieldData, fieldData.getSnake().size());
     }
 }

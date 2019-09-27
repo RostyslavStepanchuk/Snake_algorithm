@@ -27,8 +27,11 @@ import com.codenjoy.dojo.client.AbstractBoard;
 import com.codenjoy.dojo.services.Direction;
 import com.codenjoy.dojo.services.Point;
 import com.codenjoy.dojo.snake.model.Elements;
+import com.codenjoy.dojo.snake.solver.SnakeSorter;
+import com.codenjoy.dojo.snake.solver.SymbolsMatchKey;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Board extends AbstractBoard<Elements> {
@@ -103,6 +106,14 @@ public class Board extends AbstractBoard<Elements> {
         return result;
     }
 
+    public LinkedList<Point> getSortedSnake() {
+        LinkedList<Point> result = new SnakeSorter().sort(this, getSnake());
+        System.out.print("Sorted snake: ");
+        result.forEach(System.out::print);
+        System.out.println();
+        return result;
+    }
+
     public boolean isGameOver() {
         return getHead() == null;
     }
@@ -113,13 +124,13 @@ public class Board extends AbstractBoard<Elements> {
             "Apple at: %s\n" +
             "Stones at: %s\n" +
             "Head at: %s\n" +
-            "Snake at: %s\n" +
+//            "Snake at: %s\n" +
             "Current direction: %s",
                 boardAsString(),
                 getApples(),
                 getStones(),
                 getHead(),
-                getSnake(),
+//                getSnake(),
                 getSnakeDirection());
     }
 

@@ -3,11 +3,12 @@ package com.codenjoy.dojo.snake.solver;
 import com.codenjoy.dojo.services.Point;
 import com.codenjoy.dojo.snake.client.Board;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public final class FieldData {
-    private final List<Point> snake;
-    private final Point head;
+    private final LinkedList<Point> snake;
+    private Point head;
     private final List<Point> apples;
     private final List<Point> stones;
     private final List<Point> walls;
@@ -16,19 +17,11 @@ public final class FieldData {
         return walls;
     }
 
-    private static List<Point> sortedSnake(Board board, List<Point> snake, Point head) {
-        return new SnakeBuilder().build(board, snake, head);
-    }
-
     public FieldData(Board board) {
-        this(   sortedSnake(board, board.getSnake(), board.getHead()),
-                board.getHead(),
-                board.getApples(),
-                board.getStones(),
-                board.getWalls());
+        this(board.getSortedSnake(), board.getHead(), board.getApples(), board.getStones(), board.getWalls());
     }
 
-    public FieldData(List<Point> snake, Point head, List<Point> apples, List<Point> stones, List<Point> walls) {
+    public FieldData(LinkedList<Point> snake, Point head, List<Point> apples, List<Point> stones, List<Point> walls) {
         this.snake = snake;
         this.head = head;
         this.apples = apples;
@@ -36,7 +29,7 @@ public final class FieldData {
         this.walls = walls;
     }
 
-    public List<Point> getSnake() {
+    public LinkedList<Point> getSnake() {
         return snake;
     }
 
@@ -52,7 +45,8 @@ public final class FieldData {
         return head;
     }
 
-    public boolean isValid() {
-        return !snake.isEmpty() && head != null;
+    public void allowToEatStone(){
+        apples.addAll(stones);
+        stones.clear();
     }
 }

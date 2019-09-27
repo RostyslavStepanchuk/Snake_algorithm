@@ -28,6 +28,7 @@ import com.codenjoy.dojo.client.WebSocketRunner;
 import com.codenjoy.dojo.services.Dice;
 import com.codenjoy.dojo.services.Direction;
 import com.codenjoy.dojo.services.RandomDice;
+import com.codenjoy.dojo.snake.logger.Logger;
 import com.codenjoy.dojo.snake.solver.SnakeAlgorithm;
 
 import java.util.Date;
@@ -46,16 +47,33 @@ public class YourSolver implements Solver<Board> {
 
     @Override
     public String get(Board board) {
-        long startTime = new Date().getTime();
+        try {
+            long startTime = new Date().getTime();
+            System.out.println("STOPWATCH STARTED");
+            this.board = board; // default code
+//        System.out.println(board.toString());// default code
+            if (board.isGameOver()) {
+                Logger.getInstance().logLoss(board);
+                return Direction.UP.toString();
+            }
 
-        this.board = board; // default code
-        System.out.println(board.toString());// default code
+            SnakeAlgorithm algorithm = new SnakeAlgorithm(board);
 
-        String move = new SnakeAlgorithm(board).makeMove();
-        System.out.println("USED TIME: " + (new Date().getTime() - startTime) +"ms");
+            String move = algorithm.makeMove();
+            long usedTime = new Date().getTime() - startTime;
+            System.out.println("USED TIME: " + (usedTime) + "ms");
 
-        return move;
+            if (usedTime >= 900) {
+                Logger.getInstance().logTimeException( "TIME: " + usedTime + "ms\n" + board.toString());
+            }
+            return move;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger.getInstance().logError(e, board);
+            return Direction.UP.toString();
+        }
     }
+
 
     public static void main(String[] args) {
         WebSocketRunner.runClient(
