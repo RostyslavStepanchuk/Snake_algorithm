@@ -1,6 +1,7 @@
 package com.codenjoy.dojo.snake.logger;
 
 import com.codenjoy.dojo.snake.client.Board;
+import com.codenjoy.dojo.snake.helpers.Route;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,13 +10,20 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.function.Consumer;
 
 public class Logger {
+    private static int errorCount = 0;
+    private static final int HISTORY_MOVES_LIMIT = 30;
     private static Logger instance = new Logger();
     private static final File file = new File("./log", "snake.txt");
+    private static LinkedList<String> boardHistory = new LinkedList<>();
+    private final StringBuilder moveDescription = new StringBuilder();
     public static Logger getInstance() {
         return instance;
     }
+
 
     private SimpleDateFormat template = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
@@ -32,11 +40,18 @@ public class Logger {
         }
     }
 
-    public void logLoss(Board board){
+    public void saveMoveData(String board) {
+        boardHistory.add(board);
+        if (boardHistory.size() > HISTORY_MOVES_LIMIT) {
+            boardHistory.removeFirst();
+        }
+    }
+
+    public void addLogItem(String caseName, String details){
         try {
             BufferedWriter out = new BufferedWriter(new FileWriter(file, true));
-            out.write(formatLogData(LogTypes.LOSS, "=========================== GAME LOST ======================================="));
-            out.write(board.toString());
+            out.write(logDivider(caseName));
+            out.write(details);
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,48 +59,22 @@ public class Logger {
         }
     }
 
-    public void logSnakeSortFail(String sortHistory){
+    public void logError(Exception e) {
         try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(file, true));
-            out.write(formatLogData(LogTypes.SNAKE_SORT_FAIL, "=========================== SNAKE SORT FAIL ======================================="));
-            out.write(sortHistory);
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Error while logging file");
-        }
-    }
-
-    public void logTimeException(String sortHistory){
-        try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(file, true));
-            out.write(formatLogData(LogTypes.SNAKE_SORT_FAIL, "=========================== LONG TIME EXECUTION ======================================="));
-            out.write(sortHistory);
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Error while logging file");
-        }
-    }
-
-    public void logProblem(String problem, String message){
-//        try {
-//            BufferedWriter out = new BufferedWriter(new FileWriter(file, true));
-//            out.write(formatLogData(LogTypes.SNAKE_SORT_FAIL, "===========================" + problem.toUpperCase() + "======================================="));
-//            out.write(message);
-//            out.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            throw new RuntimeException("Error while logging file");
-//        }
-    }
-
-    public void logSystemError(Exception e) {
-        try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(file, true));
-            out.write(formatLogData(LogTypes.ERROR, "=========================== SYSTEM ERROR ======================================="));
-            out.write(e.getMessage());
-            out.write(Arrays.toString(e.getStackTrace()));
+            File errorLogFile = new File("./log/errors", "error" + ++errorCount + ".txt");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            BufferedWriter out = new BufferedWriter(new FileWriter(errorLogFile, true));
+            out.write(logDivider("Error"));
+            out.write(e.getMessage() + "\n");
+            StackTraceElement[] stackTrace = e.getStackTrace();
+            for (StackTraceElement element: stackTrace) {
+                out.write(element.toString() + "\n");
+            }
+            for (String move: boardHistory) {
+                out.write(move);
+            }
             out.close();
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -93,22 +82,19 @@ public class Logger {
         }
     }
 
-    public void logError(Exception e, Board board) {
-        try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(file, true));
-            out.write(formatLogData(LogTypes.ERROR, "=========================== ERROR ======================================="));
-            out.write(e.getMessage());
-            out.write(Arrays.toString(e.getStackTrace()));
-            out.write(board.toString());
-            out.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            throw new RuntimeException("Error while logging file");
-        }
+    public String logDivider(String caseName) {
+        return "\n" + template.format(new Date()) + ": ===========================" + caseName.toUpperCase() + "===========================" + "\n";
     }
 
-    public String formatLogData(Enum<LogTypes> type, String message) {
-        return "\n" + template.format(new Date()) + String.format("[%s] ", type.name()) + message + "\n";
+    public StringBuilder getMoveDescription(){
+        return moveDescription;
+    }
+
+    public void describeMoveResult(Route result) {
+        moveDescription.append("RESULT ROUTE: ");
+        result.forEach(moveDescription::append);
+        moveDescription.append("\n");
+        moveDescription.append("NEXT MOVE: ").append(result.getLast()).append("\n");
     }
 
 }

@@ -1,4 +1,4 @@
-package com.codenjoy.dojo.snake.solver;
+package com.codenjoy.dojo.snake.helpers;
 
 import com.codenjoy.dojo.services.Point;
 
@@ -8,25 +8,28 @@ import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
+// This class is in fact LinkedList of Points and doesn't have any own customized methods
+// The only purpose of this class is semantic convenience
+
 public final class Route implements List<Point> {
+    private final LinkedList<Point> storage;
+
+    public Route() {
+        this (new LinkedList<>());
+    }
+    public Route(Route route) {
+        this (route.getStorage());
+    }
+    public Route(Collection<? extends Point> c) {
+        storage = new LinkedList<>(c);
+    }
+
+    private LinkedList<Point> getStorage() {
+        return storage;
+    }
+
     public Point getFirst() {
         return storage.getFirst();
-    }
-
-    public Point removeFirst() {
-        return storage.removeFirst();
-    }
-
-    public Point removeLast() {
-        return storage.removeLast();
-    }
-
-    public void addFirst(Point point) {
-        storage.addFirst(point);
-    }
-
-    public void addLast(Point point) {
-        storage.addLast(point);
     }
 
     public boolean remove(Object o) {
@@ -63,62 +66,6 @@ public final class Route implements List<Point> {
 
     public int lastIndexOf(Object o) {
         return storage.lastIndexOf(o);
-    }
-
-    public Point peek() {
-        return storage.peek();
-    }
-
-    public Point element() {
-        return storage.element();
-    }
-
-    public Point remove() {
-        return storage.remove();
-    }
-
-    public boolean offer(Point point) {
-        return storage.offer(point);
-    }
-
-    public boolean offerFirst(Point point) {
-        return storage.offerFirst(point);
-    }
-
-    public boolean offerLast(Point point) {
-        return storage.offerLast(point);
-    }
-
-    public Point peekFirst() {
-        return storage.peekFirst();
-    }
-
-    public Point peekLast() {
-        return storage.peekLast();
-    }
-
-    public Point pollFirst() {
-        return storage.pollFirst();
-    }
-
-    public Point pollLast() {
-        return storage.pollLast();
-    }
-
-    public void push(Point point) {
-        storage.push(point);
-    }
-
-    public Point pop() {
-        return storage.pop();
-    }
-
-    public boolean removeFirstOccurrence(Object o) {
-        return storage.removeFirstOccurrence(o);
-    }
-
-    public boolean removeLastOccurrence(Object o) {
-        return storage.removeLastOccurrence(o);
     }
 
     public ListIterator<Point> listIterator(int index) {
@@ -181,35 +128,6 @@ public final class Route implements List<Point> {
         storage.sort(c);
     }
 
-    private final LinkedList<Point> storage;
-
-    public Route() {
-        this (new LinkedList<>());
-    }
-
-    public Route(Route route) {
-        this (route.getStorage());
-    }
-
-    public Route(Collection<? extends Point> c) {
-        storage = new LinkedList<>(c);
-    }
-
-    @Override
-    public String toString() {
-        StringJoiner sj = new StringJoiner(",", "<<",">>");
-        storage.forEach(item -> sj.add(item.toString()));
-        return sj.toString();
-    }
-
-    private LinkedList<Point> getStorage() {
-        return storage;
-    }
-
-    public Point poll() {
-        return storage.poll();
-    }
-
     public boolean add(Point point) {
         return storage.add(point);
     }
@@ -241,5 +159,12 @@ public final class Route implements List<Point> {
 
     public boolean addAll(Collection<? extends Point> c) {
         return storage.addAll(c);
+    }
+
+    @Override
+    public String toString() {
+        StringJoiner sj = new StringJoiner(",", "<<",">>");
+        storage.forEach(item -> sj.add(item.toString()));
+        return sj.toString();
     }
 }

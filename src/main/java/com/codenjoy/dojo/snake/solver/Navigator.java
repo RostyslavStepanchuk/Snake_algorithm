@@ -2,15 +2,14 @@ package com.codenjoy.dojo.snake.solver;
 
 import com.codenjoy.dojo.services.Point;
 import com.codenjoy.dojo.services.PointImpl;
-import com.codenjoy.dojo.snake.logger.Logger;
+import com.codenjoy.dojo.snake.helpers.FieldData;
+import com.codenjoy.dojo.snake.helpers.Route;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class Navigator {
+final class Navigator {
     private final List<Point> deltas = new ArrayList<Point>() {{
         add(new PointImpl(0, -1));
         add(new PointImpl(-1, 0));
@@ -21,11 +20,11 @@ public class Navigator {
     private Field printField;
     private Field field;
     private final Point start;
-    private boolean basicSearchDone = false;
+    private boolean shortestRouteSearchDone = false;
     private Set<Point> savedRoutePoints;
     private LinkedList<Point> snake;
 
-    public Navigator(FieldData fieldData) {
+    Navigator(FieldData fieldData) {
         this.start = fieldData.getHead();
         this.snake = fieldData.getSnake();
         this.field = new Field(fieldData);
@@ -45,11 +44,11 @@ public class Navigator {
     private List<Point> nearestAvailable(Point point) {
         return nearest(point)
                 .stream()
-                .filter(p -> field.get(p) == 0)
+                .filter(field::isAvailable)
                 .collect(Collectors.toList());
     }
 
-    private Set<Point> nearestAvailableForAll(List<Point> currentPoints) {
+    private Set<Point> nearestAvailableForEach(List<Point> currentPoints) {
         return currentPoints
                 .stream()
                 .map(this::nearestAvailable)
@@ -61,46 +60,51 @@ public class Navigator {
         return nearest(point)
                 .stream()
                 .filter(p -> field.get(p) == val)
-                .findFirst()
+                .max(Comparator.comparingInt(this::setPriority))
                 .orElseThrow(() -> new RuntimeException(String.format("No requested %d value near cell %s", val, point.toString())));
     }
 
-    private Optional<Point> nearestRootPoint(Point point) {
+    private int setPriority (Point point) {
+        int score = 0;
+        if (point.getX() == 1 || point.getX() == 13 || point.getY() == 1 || point.getY() == 13) {
+            score--;
+        }
+        return score;
+    }
+
+    private Optional<Point> nearestPointWithMark(Point point) {
         return nearest(point)
                 .stream()
-                .filter(p -> field.get(p) > 0)
+                .filter(field::isMark)
                 .max(Comparator.comparingInt(o -> field.get(o)));
     }
 
-
+    private Set<Point> performLeeAlgorithmStep(int [] marker, List<Point> toInvestigate) {
+        field.moveSnakeTail();
+        marker[0]++;
+        Set<Point> options = nearestAvailableForEach(toInvestigate);
+        options.forEach(point -> field.set(point, marker[0]));
+        return options;
+    }
 
     public Optional<Route> getShortestRoute(List<Point> targets) {
-        boolean found = false;
         int[] marker = new int[1];
-        List<Point> toInvestigate = new ArrayList<Point>() {{
-            add(start);
-        }};
-        Point foundPoint = targets.get(0);
-        while (!toInvestigate.isEmpty() && !found) {
-            field.moveSnakeTail();
-            marker[0]++;
-            Set<Point> options = nearestAvailableForAll(toInvestigate);
-            options.forEach(point -> field.set(point, marker[0]));
+        List<Point> toInvestigate = new ArrayList<Point>() {{ add(start); }};
+        List<Point> foundTargets = new ArrayList<>();
+        while (!toInvestigate.isEmpty() && foundTargets.isEmpty()) {
+            Set<Point> options = performLeeAlgorithmStep(marker, toInvestigate);
             Optional<Point> foundTarget = targets.stream().filter(options::contains).findFirst();
-            if (foundTarget.isPresent()) {
-                found = true;
-                savedRoutePoints = options;
-                foundPoint = foundTarget.get();
-            }
-            foundTarget.ifPresent(point -> {
-
+            foundTarget.ifPresent(target -> {
+                foundTargets.add(target);
+                savedRoutePoints = options; // Points are saved for other methods (e.g routeToMostDistantPoint in case target is in dead end)
             });
+
             toInvestigate.clear();
             toInvestigate.addAll(options);
         }
-        basicSearchDone = true;
-        if (found) {
-            Route path = getTraceToHead(foundPoint);
+        shortestRouteSearchDone = true; // Some advanced algorithms require markers that are put during this method
+        if (!foundTargets.isEmpty()) {
+            Route path = getTraceToHead(foundTargets.get(0));
             return Optional.of(path);
         } else {
             return Optional.empty();
@@ -108,90 +112,52 @@ public class Navigator {
     }
 
     public Route routeToMostDistantPoint(){
-        if (!basicSearchDone) throw new RuntimeException("routeToMostDistantPoint can be launched only after basic search is done and reflected on field");
-        StringBuilder sb = new StringBuilder();
+        if (!shortestRouteSearchDone) throw new RuntimeException("routeToMostDistantPoint can be launched only after basic search is done and marks are put on field");
         int[] marker = new int[1];
         List<Point> toInvestigate = new ArrayList<>(savedRoutePoints);
-        sb.append("Saved points to start from: ");
-        toInvestigate.forEach(sb::append);
-        sb.append("\n");
         Point target = toInvestigate.get(0);
-        sb.append("taken as a target: ");
-        sb.append(target);
-        sb.append("\n");
         marker[0] = field.get(target);
-        sb.append("starting marker: " + marker[0] + "\n");
 
         while (!toInvestigate.isEmpty() && marker[0] <= snake.size()) {
-            field.moveSnakeTail();
-            marker[0]++;
-            sb.append("new marker: " + marker[0] + "\n");
-            Set<Point> options = nearestAvailableForAll(toInvestigate);
-            sb.append("new options: ");
-            options.forEach(sb::append);
-            sb.append("\n");
-            options.forEach(point -> field.set(point, marker[0]));
+            Set<Point> options = performLeeAlgorithmStep(marker, toInvestigate);
             toInvestigate.clear();
             toInvestigate.addAll(options);
             if (!toInvestigate.isEmpty()){
                 target = toInvestigate.get(0);
-                sb.append("new target: " + target + "\n");
             }
         }
-        sb.append(field.toString());
-        sb.append("\n");
-        Logger.getInstance().logProblem("DISTANT POINT CHECK", sb.toString());
         return getTraceToHead(target);
     }
 
-    public int countAvailableSurroundings() {
-        StringBuilder sb = new StringBuilder();
-        int result = 0;
-        Set<Point> collectedPoints = new HashSet<>();
-        List<Point> rootOptions = nearestAvailable(start);
+    int countAvailableSurroundings() {
+        if (shortestRouteSearchDone) throw new RuntimeException("routeToMostDistantPoint must be launched on empty field without markers");
+        int[] maxAvailable = new int[1];
+        List<Point> routeOptions = nearestAvailable(start);
 
+        routeOptions.forEach(option -> {
+            if (field.get(option) == 0 && maxAvailable[0] < snake.size()) {
+                field.set(option, Field.RESERVE);
+                List<Point> toInvestigate = new ArrayList<Point>() {{ add(option); }};
+                Set<Point> collectedPoints = new HashSet<>();
 
-        while (!rootOptions.isEmpty() && collectedPoints.size() < snake.size()) {
-            sb.append("Snake in the beginning ");
-            snake.forEach(sb::append);
-            sb.append("\n");
-            List<Point> finalRootOptions = rootOptions;
-            sb.append("Route options: ");
-            rootOptions.forEach(sb::append);
-            sb.append("\n");
-            sb.append("Investigating " + finalRootOptions.get(0) + "\n");
-            List<Point> toInvestigate = new ArrayList<Point>() {{
-                add(finalRootOptions.get(0));
-                field.set(finalRootOptions.get(0), Field.RESERVE);
-            }};
-            collectedPoints.clear();
+                while (!toInvestigate.isEmpty() && maxAvailable[0] < snake.size()) {
+                    field.moveSnakeTail();
+                    Set<Point> options = nearestAvailableForEach(toInvestigate);
+                    options.forEach(point -> field.set(point, Field.RESERVE));
+                    collectedPoints.addAll(options);
+                    toInvestigate.clear();
+                    toInvestigate.addAll(options);
+                }
 
-            while (!toInvestigate.isEmpty()) {
-                field.moveSnakeTail();
-                Set<Point> options = nearestAvailableForAll(toInvestigate);
-                sb.append("Options collected during wave: ");
-                options.forEach(sb::append);
-                sb.append("\n");
-                options.forEach(point -> field.set(point, Field.RESERVE));
-                collectedPoints.addAll(options);
-                toInvestigate.clear();
-                toInvestigate.addAll(options);
+                if (collectedPoints.size() > maxAvailable[0]) {
+                    maxAvailable[0] = collectedPoints.size();
+                }
+                collectedPoints.clear();
+                field.resetSnake(snake);
             }
-            sb.append("Got points: ");
-            sb.append(collectedPoints.size() + "\n");
-            sb.append("Field in the end: ");
-            sb.append("\n");
-            sb.append(field.toString());
-            sb.append("\n");
-            if (collectedPoints.size() > result) {
-                result = collectedPoints.size();
-            }
-            field.setSnake(snake);
-            rootOptions = nearestAvailable(start);
-        }
-        sb.append("Final result is: " + result);
-        Logger.getInstance().logProblem("countavailablesurroundings", sb.toString());
-        return result;
+        });
+
+        return maxAvailable[0];
     }
 
     private Route getTraceToHead (Point markedPoint) {
@@ -208,7 +174,7 @@ public class Navigator {
         return path;
     }
 
-    public Route getRouteOut (FieldData fd) {
+    public Route getOutOfDeadEnd(FieldData fd) {
         Point escapePoint = getSoonestOpening(snake);
         int[] marker = new int[1];
         marker[0] = field.get(escapePoint);
@@ -216,32 +182,16 @@ public class Navigator {
     }
 
     private Point getSoonestOpening (LinkedList<Point> snake) {
-        if (!basicSearchDone) throw new RuntimeException("getSoonestOpening can be launched only after basic search is done and reflected on field");
+        if (!shortestRouteSearchDone) throw new RuntimeException("getSoonestOpening can be launched only after basic search is done and marks are put on field");
         Iterator<Point> tail = snake.descendingIterator();
         while (tail.hasNext()) {
-            Point current = tail.next();
-            if (field.isSnake(current)) {
-                Optional<Point> result = nearestRootPoint(current);
-                if (result.isPresent()) return result.get();
+            Optional<Point> result = nearestPointWithMark(tail.next());
+            if (result.isPresent()) {
+                System.out.println("SOONEST OPENING: " + result.get());
+                return result.get();
             }
         }
-        Logger.getInstance().logProblem("NO ROUTE MARKERS FOUND", field.toString());
         throw new RuntimeException("No route markers were found near snake. Check field and basicSearch results");
-    }
-
-    public Point nearestSafeRandom() {
-        List<Point> moves = new ArrayList<>(deltas);
-        while (moves.size() > 1) {
-            int dice = new Random().nextInt(moves.size());
-            Point target = new PointImpl(start) {{
-                change(moves.get(dice));
-            }};
-            moves.remove(dice);
-            if (field.isSafe(target)) {
-                return target;
-            }
-        }
-        return new PointImpl(start) {{ change(moves.get(0)); }};
     }
 
     public Route getLongerRouteVersion(Route original, FieldData fieldData, int desiredLength) {
@@ -268,9 +218,6 @@ public class Navigator {
         if (result.size() > original.size() && result.size() < desiredLength) {
             return getLongerRouteVersion(result, fieldData, desiredLength);
         } else {
-            System.out.println("RESULT ROUTE: ");
-            result.forEach(System.out::print);
-            System.out.println();
             return result;
         }
     }
@@ -288,7 +235,7 @@ public class Navigator {
                 .findFirst();
 
         if (result.isPresent()) {
-            field.setBarriers(result.get());
+            field.setReserved(result.get());
             return result.get();
         } else {
             return new LinkedList<>();
@@ -296,11 +243,8 @@ public class Navigator {
     }
 
     public void print(Route r){
-        printField.print(r);
-    }
-
-    public void printRaw(){
-        field.printRaw();
+        printField.markPath(r);
+        System.out.println(printField.toString(r));
     }
 
     @Override

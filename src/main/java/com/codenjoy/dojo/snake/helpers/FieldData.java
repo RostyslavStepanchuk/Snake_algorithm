@@ -1,4 +1,4 @@
-package com.codenjoy.dojo.snake.solver;
+package com.codenjoy.dojo.snake.helpers;
 
 import com.codenjoy.dojo.services.Point;
 import com.codenjoy.dojo.snake.client.Board;
@@ -17,8 +17,8 @@ public final class FieldData {
         return walls;
     }
 
-    public FieldData(Board board) {
-        this(board.getSortedSnake(), board.getHead(), board.getApples(), board.getStones(), board.getWalls());
+    public FieldData(Board board, LinkedList<Point> snake) {
+        this(snake, board.getHead(), board.getApples(), board.getStones(), board.getWalls());
     }
 
     public FieldData(LinkedList<Point> snake, Point head, List<Point> apples, List<Point> stones, List<Point> walls) {
@@ -45,7 +45,7 @@ public final class FieldData {
         return head;
     }
 
-    public void allowToEatStone(){
+    public void considerStoneAsSecondApple(){
         apples.addAll(stones);
         stones.clear();
     }

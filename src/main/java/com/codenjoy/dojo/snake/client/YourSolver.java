@@ -27,17 +27,22 @@ import com.codenjoy.dojo.client.Solver;
 import com.codenjoy.dojo.client.WebSocketRunner;
 import com.codenjoy.dojo.services.Dice;
 import com.codenjoy.dojo.services.Direction;
+import com.codenjoy.dojo.services.Point;
 import com.codenjoy.dojo.services.RandomDice;
+import com.codenjoy.dojo.snake.helpers.Lifebuoy;
 import com.codenjoy.dojo.snake.logger.Logger;
+import com.codenjoy.dojo.snake.logger.LostGameCatcher;
 import com.codenjoy.dojo.snake.solver.SnakeAlgorithm;
+import org.reflections.vfs.Vfs;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * User: your name
  */
 public class YourSolver implements Solver<Board> {
-
     private Dice dice;
     private Board board;
 
@@ -49,31 +54,31 @@ public class YourSolver implements Solver<Board> {
     public String get(Board board) {
         try {
             long startTime = new Date().getTime();
-            System.out.println("STOPWATCH STARTED");
-            this.board = board; // default code
-//        System.out.println(board.toString());// default code
-            if (board.isGameOver()) {
-                Logger.getInstance().logLoss(board);
-                return Direction.UP.toString();
-            }
 
+            this.board = board;
             SnakeAlgorithm algorithm = new SnakeAlgorithm(board);
-
             String move = algorithm.makeMove();
-            long usedTime = new Date().getTime() - startTime;
-            System.out.println("USED TIME: " + (usedTime) + "ms");
 
+            long usedTime = new Date().getTime() - startTime;
             if (usedTime >= 900) {
-                Logger.getInstance().logTimeException( "TIME: " + usedTime + "ms\n" + board.toString());
+                Logger.getInstance().addLogItem("time limit exceeded", "TIME: " + usedTime + "ms\n" + board.toString());
             }
+
+            new LostGameCatcher().catchGameLoss(board);
+            System.out.println("USED TIME: " + usedTime + "ms");
             return move;
+
         } catch (Exception e) {
             e.printStackTrace();
-            Logger.getInstance().logError(e, board);
-            return Direction.UP.toString();
+            Logger.getInstance().logError(e);
+            try {
+                return new Lifebuoy(board).makeLastHopeMove();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return Direction.LEFT.toString();
+            }
         }
     }
-
 
     public static void main(String[] args) {
         WebSocketRunner.runClient(
