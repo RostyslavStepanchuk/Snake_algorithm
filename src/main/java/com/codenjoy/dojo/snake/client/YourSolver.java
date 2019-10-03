@@ -27,17 +27,13 @@ import com.codenjoy.dojo.client.Solver;
 import com.codenjoy.dojo.client.WebSocketRunner;
 import com.codenjoy.dojo.services.Dice;
 import com.codenjoy.dojo.services.Direction;
-import com.codenjoy.dojo.services.Point;
 import com.codenjoy.dojo.services.RandomDice;
 import com.codenjoy.dojo.snake.helpers.Lifebuoy;
 import com.codenjoy.dojo.snake.logger.Logger;
 import com.codenjoy.dojo.snake.logger.LostGameCatcher;
 import com.codenjoy.dojo.snake.solver.SnakeAlgorithm;
-import org.reflections.vfs.Vfs;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * User: your name
@@ -69,7 +65,7 @@ public class YourSolver implements Solver<Board> {
             return move;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("\nERROR CAUGHT: " + e.getMessage() + "\nREAD ERROR LOG FILES FOR MORE DETAILS");
             Logger.getInstance().logError(e);
             try {
                 return new Lifebuoy(board).makeLastHopeMove();

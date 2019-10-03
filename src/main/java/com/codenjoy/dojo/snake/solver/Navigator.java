@@ -174,24 +174,27 @@ final class Navigator {
         return path;
     }
 
-    public Route getOutOfDeadEnd(FieldData fd) {
-        Point escapePoint = getSoonestOpening(snake);
-        int[] marker = new int[1];
-        marker[0] = field.get(escapePoint);
-        return getLongerRouteVersion(getTraceToHead(escapePoint), fd, snake.size());
+    public Optional<Route> getOutOfDeadEnd(FieldData fd) {
+        Optional<Point> escapePoint = getSoonestOpening(snake);
+        if (escapePoint.isPresent()){
+            int[] marker = new int[1];
+            marker[0] = field.get(escapePoint.get());
+            return Optional.of(getLongerRouteVersion(getTraceToHead(escapePoint.get()), fd, snake.size()));
+        }
+        return Optional.empty();
     }
 
-    private Point getSoonestOpening (LinkedList<Point> snake) {
+    private Optional<Point> getSoonestOpening (LinkedList<Point> snake) {
         if (!shortestRouteSearchDone) throw new RuntimeException("getSoonestOpening can be launched only after basic search is done and marks are put on field");
         Iterator<Point> tail = snake.descendingIterator();
+        Optional<Point> result;
         while (tail.hasNext()) {
-            Optional<Point> result = nearestPointWithMark(tail.next());
+            result = nearestPointWithMark(tail.next());
             if (result.isPresent()) {
-                System.out.println("SOONEST OPENING: " + result.get());
-                return result.get();
+                return result;
             }
         }
-        throw new RuntimeException("No route markers were found near snake. Check field and basicSearch results");
+        return Optional.empty();
     }
 
     public Route getLongerRouteVersion(Route original, FieldData fieldData, int desiredLength) {
@@ -240,6 +243,22 @@ final class Navigator {
         } else {
             return new LinkedList<>();
         }
+    }
+
+    public Route nearestSafeRandom() {
+        List<Point> moves = new ArrayList<>(deltas);
+        Route result = new Route();
+        while (moves.size() > 0 && result.isEmpty()) {
+            int dice = new Random().nextInt(moves.size());
+            Point target = new PointImpl(start) {{
+                change(moves.get(dice));
+            }};
+            moves.remove(dice);
+            if (field.isSafe(target) || moves.isEmpty()) {
+                result.add(target);
+            }
+        }
+        return result;
     }
 
     public void print(Route r){

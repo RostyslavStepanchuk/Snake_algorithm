@@ -33,27 +33,24 @@ public final class SnakeAlgorithm {
     }
 
     public String makeMove(){
+        moveDescription.setLength(0);
         moveDescription.append(board.toString());
         FieldData fieldData = new FieldData(board, new SnakeSorter().sort(board, board.getSnake()));
         if (fieldData.getSnake().size() < board.getSnake().size()) {
-            throw new RuntimeException("Snake was not fully sorted");
+            logger.saveMoveData(moveDescription.toString());
+            throw new RuntimeException(String.format("Snake was not fully sorted original: %d, sorted: %d", board.getSnake().size(), fieldData.getSnake().size()));
         }
         Route result = getRoute(fieldData);
         logger.describeMoveResult(result);
         logger.saveMoveData(moveDescription.toString());
         return getMoveString(result.getLast());
-    };
+    }
 
     private Route getRoute(FieldData fieldData){
         if (fieldData.getSnake().size() >= 55){
             fieldData.considerStoneAsSecondApple();
         }
         Navigator nav = new Navigator(fieldData);
-
-        if (board.isGameOver()) {
-            moveDescription.append(board.toString());
-            throw new RuntimeException("GAME IS OVER");
-        }
 
         Route result;
         Optional<Route> shortest = nav.getShortestRoute(fieldData.getApples());
@@ -62,14 +59,20 @@ public final class SnakeAlgorithm {
             result = safetyAdjustedRoute(shortest.get(), nav, fieldData);
         } else {
             moveDescription.append("GETTING OUT OF THE BOX").append("\n");
-            result = nav.getOutOfDeadEnd(fieldData);
+            Optional<Route> wayOut = nav.getOutOfDeadEnd(fieldData);
+            moveDescription.append("NO WAYS FOUND").append("\n");
+            result = wayOut.orElseGet(nav::nearestSafeRandom);
         }
+
         return result;
     }
 
     private boolean routeIsNotDeadEnd(Route routeCopy, LinkedList<Point> snake, int snakeSize) {
         routeCopy.addAll(snake);
-        LinkedList<Point> futureSnake = new LinkedList<>(routeCopy.subList(0, snakeSize + 1));
+        int safetyReserve = routeCopy.size() - snake.size();
+        if ( safetyReserve > 2) { safetyReserve = 2; }
+
+        LinkedList<Point> futureSnake = new LinkedList<>(routeCopy.subList(0, snakeSize + safetyReserve));
         FieldData futureField = new FieldData(futureSnake, futureSnake.getFirst(), board.getApples(), board.getStones(), board.getWalls());
         Navigator simulator = new Navigator(futureField);
         return simulator.countAvailableSurroundings() >= snakeSize;

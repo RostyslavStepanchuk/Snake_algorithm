@@ -18,33 +18,49 @@ public final class SnakeSorter {
     private static final int OFFSET_MINUS_Y = 3;
     private static final int NOT_NEAR_STANDING = -1;
 
-    private static final Map<Elements, HashMap<Integer,List<Elements>>> matchingSymbols = new HashMap<Elements, HashMap<Integer,List<Elements>>>(){{
-        put(HEAD_DOWN, new HashMap<Integer, List<Elements>>(){{
-            put(OFFSET_PLUS_Y, Arrays.asList(TAIL_END_UP, TAIL_VERTICAL, TAIL_LEFT_DOWN, TAIL_RIGHT_DOWN));}});
-        put(HEAD_UP, new HashMap<Integer, List<Elements>>(){{
-            put(OFFSET_MINUS_Y, Arrays.asList(TAIL_END_DOWN, TAIL_VERTICAL, TAIL_RIGHT_UP, TAIL_LEFT_UP)); }});
-        put(HEAD_LEFT, new HashMap<Integer, List<Elements>>(){{
-            put(OFFSET_PLUS_X, Arrays.asList(TAIL_END_RIGHT, TAIL_HORIZONTAL, TAIL_LEFT_DOWN, TAIL_LEFT_UP)); }});
-        put(HEAD_RIGHT, new HashMap<Integer, List<Elements>>(){{
-            put(OFFSET_MINUS_X, Arrays.asList(TAIL_END_LEFT, TAIL_HORIZONTAL, TAIL_RIGHT_DOWN, TAIL_RIGHT_UP)); }});
-        put(TAIL_HORIZONTAL, new HashMap<Integer, List<Elements>>(){{
-            put(OFFSET_MINUS_X, Arrays.asList(TAIL_END_LEFT, TAIL_RIGHT_UP, TAIL_RIGHT_DOWN, TAIL_HORIZONTAL));
-            put(OFFSET_PLUS_X, Arrays.asList(TAIL_END_RIGHT, TAIL_LEFT_UP, TAIL_LEFT_DOWN, TAIL_HORIZONTAL)); }});
-        put(TAIL_VERTICAL, new HashMap<Integer, List<Elements>>(){{
-            put(OFFSET_MINUS_Y, Arrays.asList(TAIL_END_DOWN, TAIL_LEFT_UP, TAIL_RIGHT_UP, TAIL_VERTICAL));
-            put(OFFSET_PLUS_Y, Arrays.asList(TAIL_END_UP, TAIL_LEFT_DOWN, TAIL_RIGHT_DOWN, TAIL_VERTICAL)); }});
-        put(TAIL_LEFT_DOWN, new HashMap<Integer, List<Elements>>(){{
-            put(OFFSET_MINUS_Y, Arrays.asList(TAIL_VERTICAL, TAIL_END_DOWN, TAIL_RIGHT_UP, TAIL_LEFT_UP));
-            put(OFFSET_MINUS_X, Arrays.asList(TAIL_HORIZONTAL, TAIL_END_LEFT, TAIL_RIGHT_UP, TAIL_RIGHT_DOWN)); }});
-        put(TAIL_RIGHT_DOWN, new HashMap<Integer, List<Elements>>(){{
-            put(OFFSET_MINUS_Y, Arrays.asList(TAIL_VERTICAL, TAIL_END_DOWN, TAIL_LEFT_UP, TAIL_RIGHT_UP));
-            put(OFFSET_PLUS_X, Arrays.asList(TAIL_HORIZONTAL, TAIL_END_RIGHT, TAIL_LEFT_UP, TAIL_LEFT_DOWN)); }});
-        put(TAIL_LEFT_UP, new HashMap<Integer, List<Elements>>(){{
-            put(OFFSET_PLUS_Y, Arrays.asList(TAIL_VERTICAL, TAIL_END_UP, TAIL_LEFT_DOWN, TAIL_RIGHT_DOWN));
-            put(OFFSET_MINUS_X, Arrays.asList(TAIL_HORIZONTAL, TAIL_END_LEFT, TAIL_RIGHT_DOWN, TAIL_RIGHT_UP)); }});
-        put(TAIL_RIGHT_UP, new HashMap<Integer, List<Elements>>(){{
-            put(OFFSET_PLUS_Y, Arrays.asList(TAIL_VERTICAL, TAIL_END_UP, TAIL_RIGHT_DOWN, TAIL_LEFT_DOWN));
-            put(OFFSET_PLUS_X, Arrays.asList(TAIL_HORIZONTAL, TAIL_END_RIGHT, TAIL_LEFT_UP, TAIL_LEFT_DOWN)); }});
+    // Look, me in future what a monster you almost released to this world:
+
+//    private static final Map<Elements, HashMap<Integer,List<Elements>>> matchingSymbols = new HashMap<Elements, HashMap<Integer,List<Elements>>>(){{
+//        put(HEAD_DOWN, new HashMap<Integer, List<Elements>>(){{
+//            put(OFFSET_PLUS_Y, Arrays.asList(TAIL_END_UP, TAIL_VERTICAL, TAIL_LEFT_DOWN, TAIL_RIGHT_DOWN));}});
+//        put(HEAD_UP, new HashMap<Integer, List<Elements>>(){{
+//            put(OFFSET_MINUS_Y, Arrays.asList(TAIL_END_DOWN, TAIL_VERTICAL, TAIL_RIGHT_UP, TAIL_LEFT_UP)); }});
+//        put(HEAD_LEFT, new HashMap<Integer, List<Elements>>(){{
+//            put(OFFSET_PLUS_X, Arrays.asList(TAIL_END_RIGHT, TAIL_HORIZONTAL, TAIL_LEFT_DOWN, TAIL_LEFT_UP)); }});
+//        put(HEAD_RIGHT, new HashMap<Integer, List<Elements>>(){{
+//            put(OFFSET_MINUS_X, Arrays.asList(TAIL_END_LEFT, TAIL_HORIZONTAL, TAIL_RIGHT_DOWN, TAIL_RIGHT_UP)); }});
+//        put(TAIL_HORIZONTAL, new HashMap<Integer, List<Elements>>(){{
+//            put(OFFSET_MINUS_X, Arrays.asList(TAIL_END_LEFT, TAIL_RIGHT_UP, TAIL_RIGHT_DOWN, TAIL_HORIZONTAL));
+//            put(OFFSET_PLUS_X, Arrays.asList(TAIL_END_RIGHT, TAIL_LEFT_UP, TAIL_LEFT_DOWN, TAIL_HORIZONTAL)); }});
+//        put(TAIL_VERTICAL, new HashMap<Integer, List<Elements>>(){{
+//            put(OFFSET_MINUS_Y, Arrays.asList(TAIL_END_DOWN, TAIL_LEFT_UP, TAIL_RIGHT_UP, TAIL_VERTICAL));
+//            put(OFFSET_PLUS_Y, Arrays.asList(TAIL_END_UP, TAIL_LEFT_DOWN, TAIL_RIGHT_DOWN, TAIL_VERTICAL)); }});
+//        put(TAIL_LEFT_DOWN, new HashMap<Integer, List<Elements>>(){{
+//            put(OFFSET_MINUS_Y, Arrays.asList(TAIL_VERTICAL, TAIL_END_DOWN, TAIL_RIGHT_UP, TAIL_LEFT_UP));
+//            put(OFFSET_MINUS_X, Arrays.asList(TAIL_HORIZONTAL, TAIL_END_LEFT, TAIL_RIGHT_UP, TAIL_RIGHT_DOWN)); }});
+//        put(TAIL_RIGHT_DOWN, new HashMap<Integer, List<Elements>>(){{
+//            put(OFFSET_MINUS_Y, Arrays.asList(TAIL_VERTICAL, TAIL_END_DOWN, TAIL_LEFT_UP, TAIL_RIGHT_UP));
+//            put(OFFSET_PLUS_X, Arrays.asList(TAIL_HORIZONTAL, TAIL_END_RIGHT, TAIL_LEFT_UP, TAIL_LEFT_DOWN)); }});
+//        put(TAIL_LEFT_UP, new HashMap<Integer, List<Elements>>(){{
+//            put(OFFSET_PLUS_Y, Arrays.asList(TAIL_VERTICAL, TAIL_END_UP, TAIL_LEFT_DOWN, TAIL_RIGHT_DOWN));
+//            put(OFFSET_MINUS_X, Arrays.asList(TAIL_HORIZONTAL, TAIL_END_LEFT, TAIL_RIGHT_DOWN, TAIL_RIGHT_UP)); }});
+//        put(TAIL_RIGHT_UP, new HashMap<Integer, List<Elements>>(){{
+//            put(OFFSET_PLUS_Y, Arrays.asList(TAIL_VERTICAL, TAIL_END_UP, TAIL_RIGHT_DOWN, TAIL_LEFT_DOWN));
+//            put(OFFSET_PLUS_X, Arrays.asList(TAIL_HORIZONTAL, TAIL_END_RIGHT, TAIL_LEFT_UP, TAIL_LEFT_DOWN)); }});
+//    }};
+
+    private static final Map<Elements, List<Integer>> elementsAllowedOffsets = new HashMap<Elements, List<Integer>>(){{
+        put(HEAD_DOWN, Collections.singletonList(OFFSET_PLUS_Y));
+        put(HEAD_UP, Collections.singletonList(OFFSET_MINUS_Y));
+        put(HEAD_LEFT, Collections.singletonList(OFFSET_PLUS_X));
+        put(HEAD_RIGHT, Collections.singletonList(OFFSET_MINUS_X));
+
+        put(TAIL_HORIZONTAL, Arrays.asList(OFFSET_MINUS_X, OFFSET_PLUS_X));
+        put(TAIL_VERTICAL, Arrays.asList(OFFSET_MINUS_Y, OFFSET_PLUS_Y));
+        put(TAIL_LEFT_DOWN, Arrays.asList(OFFSET_MINUS_Y, OFFSET_MINUS_X));
+        put(TAIL_RIGHT_DOWN, Arrays.asList(OFFSET_MINUS_Y, OFFSET_PLUS_X));
+        put(TAIL_LEFT_UP, Arrays.asList(OFFSET_PLUS_Y, OFFSET_MINUS_X));
+        put(TAIL_RIGHT_UP, Arrays.asList(OFFSET_PLUS_Y, OFFSET_PLUS_X));
     }};
 
     public LinkedList<Point> sort(Board board, List<Point> boardSnake) {
@@ -53,44 +69,34 @@ public final class SnakeSorter {
         result.add(origin.pollFirst());
 
         int counter =0;
-        moveDescription.append("Snake provided to sorter: ").append(Arrays.toString(boardSnake.toArray())).append("\n");
-        moveDescription.append("Snake symbols: ").append(board.getAt(board.getHead()));
-        while (!origin.isEmpty() && counter < 1000) {
+        while (!origin.isEmpty() && counter < 5000) {
             Point p = origin.pollFirst();
             if (pointsConnected(p, result.getLast(), board)) {
                 result.add(p);
-                moveDescription.append("|").append(p).append(board.getAt(p)).append("|");
             } else {
                 origin.add(p);
             }
             counter++;
         }
-        if (counter > 2000) {
-            throw new RuntimeException("Snake connections iterations exceeded 2000");
+        if (counter > 4999) {
+            throw new RuntimeException("Snake connections iterations exceeded 5000");
         }
-        moveDescription.append("\n");
-        moveDescription.append("Sorter result snake: ").append(Arrays.toString(result.toArray())).append("\n");
+        moveDescription.append("Sorted snake").append("(size: ").append(result.size()).append("). :").append(Arrays.toString(result.toArray())).append("\n");
         return result;
     }
 
     private boolean pointsConnected(Point connectWhat, Point connectTo, Board board){
         int offset = pointsRelation(connectWhat, connectTo);
         if (offset != NOT_NEAR_STANDING) {
-                return symbolsConnectable(connectWhat, connectTo, offset , board);
+                return positionMatchSymbol(connectTo, offset , board);
         }
         return false;
     }
 
-    private boolean symbolsConnectable (Point connectWhat, Point connectTo, int offset, Board board) {
-        Elements candidate = board.getAt(connectWhat);
+    private boolean positionMatchSymbol(Point connectTo, int offset, Board board){
         Elements currentEnd = board.getAt(connectTo);
-        Map<Integer, List<Elements>> relevantSymbolsMap = matchingSymbols.get(currentEnd);
-        if (relevantSymbolsMap == null) throw new RuntimeException("Symbol "+ candidate.ch() + " was not found in matchingSymbols Map");
-        if (!relevantSymbolsMap.containsKey(offset)) {
-            return false;
-        }
-        List<Elements> relevantConnections = relevantSymbolsMap.get(offset);
-        return relevantConnections.stream().anyMatch(element -> element == candidate);
+        List<Integer> validOffsets = elementsAllowedOffsets.get(currentEnd);
+        return validOffsets.contains(offset);
     }
 
     private int pointsRelation(Point p1, Point p2) {

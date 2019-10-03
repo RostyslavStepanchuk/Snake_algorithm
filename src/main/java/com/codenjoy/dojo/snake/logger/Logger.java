@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 
 public class Logger {
     private static int errorCount = 0;
-    private static final int HISTORY_MOVES_LIMIT = 30;
+    private static final int HISTORY_MOVES_LIMIT = 25;
     private static Logger instance = new Logger();
     private static final File file = new File("./log", "snake.txt");
     private static LinkedList<String> boardHistory = new LinkedList<>();
@@ -40,8 +40,8 @@ public class Logger {
         }
     }
 
-    public void saveMoveData(String board) {
-        boardHistory.add(board);
+    public void saveMoveData(String data) {
+        boardHistory.add(data);
         if (boardHistory.size() > HISTORY_MOVES_LIMIT) {
             boardHistory.removeFirst();
         }
