@@ -1,0 +1,7 @@
+.idea/
+log/
+target/
+src/main/csharp
+src/main/javascript
+src/main/scala
+src/main/vbnet
