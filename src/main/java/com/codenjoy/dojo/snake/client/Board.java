@@ -27,10 +27,9 @@ import com.codenjoy.dojo.client.AbstractBoard;
 import com.codenjoy.dojo.services.Direction;
 import com.codenjoy.dojo.services.Point;
 import com.codenjoy.dojo.snake.model.Elements;
-import com.codenjoy.dojo.snake.helpers.SnakeSorter;
+import com.codenjoy.dojo.snake.mycode.helpers.SnakeSorter;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Board extends AbstractBoard<Elements> {

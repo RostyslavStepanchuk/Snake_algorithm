@@ -2,11 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea1722d7-401c-4b6a-b6d6-200b6f141d31" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/log/errors/error1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log/errors/error1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/client/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/client/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/client/YourSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/client/YourSolver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/helpers/SnakeSorter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/helpers/SnakeSorter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/logger/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/logger/Logger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/solver/Navigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/solver/Navigator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/solver/SnakeAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/solver/SnakeAlgorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/helpers/FieldData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/helpers/FieldData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/helpers/Lifebuoy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/helpers/Lifebuoy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/helpers/Route.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/helpers/Route.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/helpers/SnakeSorter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/helpers/SnakeSorter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/logger/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/logger/Logger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/logger/LostGameCatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/logger/LostGameCatcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/sandbox/BoardMock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/sandbox/BoardMock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/sandbox/Sandbox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/sandbox/Sandbox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/solver/Field.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/solver/Field.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/myalgorithm/Field.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/solver/Navigator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/solver/Navigator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/myalgorithm/Navigator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/solver/SnakeAlgorithm.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/solver/SnakeAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/myalgorithm/SnakeAlgorithm.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,11 +29,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/solver/SnakeAlgorithm.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/myalgorithm/SnakeAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="59">
-              <caret line="73" column="8" selection-start-line="73" selection-start-column="8" selection-end-line="73" selection-end-column="8" />
+              <caret line="73" selection-start-line="73" selection-end-line="73" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -29,11 +41,21 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/logger/Logger.java">
+        <entry file="file://$PROJECT_DIR$/log/snake.txt">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/logger/Logger.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="488">
-              <caret line="92" column="23" selection-start-line="92" selection-start-column="16" selection-end-line="92" selection-end-column="23" />
+              <caret line="89" column="23" selection-start-line="89" selection-start-column="16" selection-end-line="89" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -62,8 +84,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/client/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1725">
-              <caret line="123" column="28" selection-start-line="123" selection-start-column="28" selection-end-line="123" selection-end-column="28" />
+            <state relative-caret-position="1710">
+              <caret line="122" column="28" selection-start-line="122" selection-start-column="28" selection-end-line="122" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -72,19 +94,7 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/helpers/Route.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="135" selection-start-line="135" selection-end-line="135" />
-              <folding>
-                <element signature="e#3203#3204#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/helpers/Lifebuoy.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/helpers/Lifebuoy.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="67">
               <caret line="38" column="11" selection-start-line="38" selection-start-column="11" selection-end-line="38" selection-end-column="11" />
@@ -98,7 +108,7 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/helpers/SnakeSorter.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/helpers/SnakeSorter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="124">
               <caret line="83" column="19" selection-start-line="83" selection-start-column="8" selection-end-line="83" selection-end-column="19" />
@@ -110,19 +120,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/model/Elements.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="365">
-              <caret line="51" column="18" selection-start-line="51" selection-start-column="18" selection-end-line="51" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/solver/Navigator.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/myalgorithm/Navigator.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2205">
-              <caret line="174" column="5" lean-forward="true" selection-start-line="174" selection-start-column="5" selection-end-line="174" selection-end-column="5" />
+              <caret line="174" column="5" selection-start-line="174" selection-start-column="5" selection-end-line="174" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#10132#10133#0" expanded="true" />
@@ -226,13 +227,13 @@
         <option value="$PROJECT_DIR$/log/errors/eatingTale.txt" />
         <option value="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/helpers/Lifebuoy.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/logger/LostGameCatcher.java" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/logger/Logger.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/sandbox/Sandbox.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/solver/Navigator.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/helpers/SnakeSorter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/client/YourSolver.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/solver/SnakeAlgorithm.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -351,30 +352,6 @@
               <item name="codenjoy" type="462c0819:PsiDirectoryNode" />
               <item name="dojo" type="462c0819:PsiDirectoryNode" />
               <item name="snake" type="462c0819:PsiDirectoryNode" />
-              <item name="helpers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="snake-battle" type="b2602c69:ProjectViewProjectNode" />
-              <item name="snake-battle" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="codenjoy" type="462c0819:PsiDirectoryNode" />
-              <item name="dojo" type="462c0819:PsiDirectoryNode" />
-              <item name="snake" type="462c0819:PsiDirectoryNode" />
-              <item name="logger" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="snake-battle" type="b2602c69:ProjectViewProjectNode" />
-              <item name="snake-battle" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="codenjoy" type="462c0819:PsiDirectoryNode" />
-              <item name="dojo" type="462c0819:PsiDirectoryNode" />
-              <item name="snake" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -387,26 +364,7 @@
               <item name="codenjoy" type="462c0819:PsiDirectoryNode" />
               <item name="dojo" type="462c0819:PsiDirectoryNode" />
               <item name="snake" type="462c0819:PsiDirectoryNode" />
-              <item name="sandbox" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="snake-battle" type="b2602c69:ProjectViewProjectNode" />
-              <item name="snake-battle" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="codenjoy" type="462c0819:PsiDirectoryNode" />
-              <item name="dojo" type="462c0819:PsiDirectoryNode" />
-              <item name="snake" type="462c0819:PsiDirectoryNode" />
-              <item name="solver" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="snake-battle" type="b2602c69:ProjectViewProjectNode" />
-              <item name="snake-battle" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="javascript" type="462c0819:PsiDirectoryNode" />
+              <item name="mycode" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -418,7 +376,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1570125443133" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1570125734453" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -445,11 +403,11 @@
   </component>
   <component name="RunManager" selected="Application.Sandbox">
     <configuration name="Navigator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.codenjoy.dojo.snake.solver.Navigator" />
+      <option name="MAIN_CLASS_NAME" value="com.codenjoy.dojo.snake.mycode.solver.Navigator" />
       <module name="snake-engine" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.codenjoy.dojo.snake.helpers.*" />
+          <option name="PATTERN" value="com.codenjoy.dojo.snake.mycode.helpers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -458,11 +416,11 @@
       </method>
     </configuration>
     <configuration name="Route" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.codenjoy.dojo.snake.helpers.Route" />
+      <option name="MAIN_CLASS_NAME" value="com.codenjoy.dojo.snake.mycode.helpers.Route" />
       <module name="snake-engine" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.codenjoy.dojo.snake.helpers.*" />
+          <option name="PATTERN" value="com.codenjoy.dojo.snake.mycode.helpers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -471,11 +429,11 @@
       </method>
     </configuration>
     <configuration name="Sandbox" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.codenjoy.dojo.snake.sandbox.Sandbox" />
+      <option name="MAIN_CLASS_NAME" value="com.codenjoy.dojo.snake.mycode.sandbox.Sandbox" />
       <module name="snake-engine" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.codenjoy.dojo.snake.sandbox.*" />
+          <option name="PATTERN" value="com.codenjoy.dojo.snake.mycode.sandbox.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -484,11 +442,11 @@
       </method>
     </configuration>
     <configuration name="SnakeSorter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.codenjoy.dojo.snake.helpers.SnakeSorter" />
+      <option name="MAIN_CLASS_NAME" value="com.codenjoy.dojo.snake.mycode.helpers.SnakeSorter" />
       <module name="snake-engine" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.codenjoy.dojo.snake.helpers.*" />
+          <option name="PATTERN" value="com.codenjoy.dojo.snake.mycode.helpers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -532,12 +490,12 @@
       <workItem from="1568615895225" duration="30680000" />
       <workItem from="1568791131100" duration="1734000" />
       <workItem from="1568796157990" duration="117024000" />
-      <workItem from="1569614418352" duration="71316000" />
+      <workItem from="1569614418352" duration="71698000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="220754000" />
+    <option name="totallyTimeSpent" value="221136000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="723" extended-state="0" />
@@ -551,13 +509,13 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info id="Learn" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32746115" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.6196513" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32646593" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.65293187" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.25181347" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.2503962" />
       <window_info anchor="bottom" id="Docker" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32488114" />
@@ -652,7 +610,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/solver/Field.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/myalgorithm/Field.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="77" column="56" selection-start-line="77" selection-start-column="56" selection-end-line="77" selection-end-column="56" />
@@ -662,7 +620,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/helpers/FieldData.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/helpers/FieldData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
@@ -672,7 +630,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/sandbox/BoardMock.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/sandbox/BoardMock.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
           <caret line="36" column="5" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
@@ -708,20 +666,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/logger/LostGameCatcher.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/logger/LostGameCatcher.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -736,7 +687,7 @@
         <state relative-caret-position="-281600" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/sandbox/Sandbox.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/sandbox/Sandbox.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="167">
           <caret line="55" column="32" selection-start-line="55" selection-start-column="32" selection-end-line="55" selection-end-column="32" />
@@ -802,7 +753,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/helpers/Route.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/helpers/Route.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
           <caret line="135" selection-start-line="135" selection-end-line="135" />
@@ -812,10 +763,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log/snake.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/helpers/Lifebuoy.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/helpers/Lifebuoy.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="67">
           <caret line="38" column="11" selection-start-line="38" selection-start-column="11" selection-end-line="38" selection-end-column="11" />
@@ -827,27 +775,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/logger/Logger.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/logger/Logger.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="488">
-          <caret line="92" column="23" selection-start-line="92" selection-start-column="16" selection-end-line="92" selection-end-column="23" />
+          <caret line="89" column="23" selection-start-line="89" selection-start-column="16" selection-end-line="89" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/client/Board.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1725">
-          <caret line="123" column="28" selection-start-line="123" selection-start-column="28" selection-end-line="123" selection-end-column="28" />
+        <state relative-caret-position="1710">
+          <caret line="122" column="28" selection-start-line="122" selection-start-column="28" selection-end-line="122" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/solver/Navigator.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/myalgorithm/Navigator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2205">
-          <caret line="174" column="5" lean-forward="true" selection-start-line="174" selection-start-column="5" selection-end-line="174" selection-end-column="5" />
+          <caret line="174" column="5" selection-start-line="174" selection-start-column="5" selection-end-line="174" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#10132#10133#0" expanded="true" />
@@ -856,7 +804,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/helpers/SnakeSorter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/helpers/SnakeSorter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="124">
           <caret line="83" column="19" selection-start-line="83" selection-start-column="8" selection-end-line="83" selection-end-column="19" />
@@ -892,15 +840,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/solver/SnakeAlgorithm.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codenjoy/dojo/snake/mycode/myalgorithm/SnakeAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="59">
-          <caret line="73" column="8" selection-start-line="73" selection-start-column="8" selection-end-line="73" selection-end-column="8" />
+          <caret line="73" selection-start-line="73" selection-end-line="73" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/snake.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
   <component name="masterDetails">

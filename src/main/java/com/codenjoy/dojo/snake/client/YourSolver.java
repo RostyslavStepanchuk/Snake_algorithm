@@ -28,10 +28,10 @@ import com.codenjoy.dojo.client.WebSocketRunner;
 import com.codenjoy.dojo.services.Dice;
 import com.codenjoy.dojo.services.Direction;
 import com.codenjoy.dojo.services.RandomDice;
-import com.codenjoy.dojo.snake.helpers.Lifebuoy;
-import com.codenjoy.dojo.snake.logger.Logger;
-import com.codenjoy.dojo.snake.logger.LostGameCatcher;
-import com.codenjoy.dojo.snake.solver.SnakeAlgorithm;
+import com.codenjoy.dojo.snake.mycode.helpers.Lifebuoy;
+import com.codenjoy.dojo.snake.mycode.logger.Logger;
+import com.codenjoy.dojo.snake.mycode.logger.LostGameCatcher;
+import com.codenjoy.dojo.snake.mycode.myalgorithm.SnakeAlgorithm;
 
 import java.util.Date;
 
